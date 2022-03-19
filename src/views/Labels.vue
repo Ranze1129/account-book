@@ -2,9 +2,13 @@
    <Layout>
      <div class="tags">
        <router-link class="tag" v-for="tag in tags" :key="tag.id"
-       :to="`/labels/edit/${tag.id}`">
+                    :to="`/labels/edit/${tag.id}`">
          <span>{{ tag.name }}</span>
-         <Icon name="right"/>
+         <div class="edit">
+           <span>编辑</span>
+           <Icon name="right"/>
+         </div>
+
        </router-link>
      </div>
      <div class="createTag-wrapper">
@@ -47,12 +51,7 @@ export default class Labels extends mixins(TagHelper){
     justify-content: space-between;
     border-bottom: 1px solid #e6e6e6;
 
-    svg {
-      width: 18px;
-      height: 18px;
-      color: #666;
-      margin-right: 16px;
-    }
+
   }
 }
 
@@ -61,6 +60,20 @@ export default class Labels extends mixins(TagHelper){
     text-align: center;
     padding: 16px;
     margin-top: 44-16px;
+  }
+}
+.edit {
+  span {
+    margin-right: 10px;
+    color: #c4c4c4;
+    font-size: 14px;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+    color: #666;
+    margin-right: 16px;
   }
 }
 </style>

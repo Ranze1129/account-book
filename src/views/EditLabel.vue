@@ -48,7 +48,12 @@ export default class EditLabel extends Vue {
     }
   }
   goBack() {
-    this.$router.back();
+    if (!this.currentTag.name) {
+      return window.alert('标签名不能为空');
+    } else {
+      this.$router.back();
+    }
+
   }
 }
 </script>
