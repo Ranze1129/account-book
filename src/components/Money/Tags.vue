@@ -32,6 +32,9 @@ export default class Tags extends mixins(TagHelper) {
     const index = this.selectedTags.indexOf(tag);
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
+    }else if(this.selectedTags.length>0){
+      this.selectedTags = []
+      this.selectedTags.push(tag);
     } else {
       this.selectedTags.push(tag);
     }
