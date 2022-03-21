@@ -60,4 +60,7 @@ created(){
 .notes{
   padding:  12px 0 ;
 }
+.tabs{
+  background: #1e61e3;
+}
 </style>

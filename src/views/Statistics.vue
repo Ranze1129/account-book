@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <Tabs class-prefix="type"
+    <Tabs class="tabs" class-prefix="type"
           :data-source="recordTypeList" :value.sync="type"/>
       <ol v-if="groupedList.length>0">
         <li v-for="(group,index) in groupedList" :key="index">
@@ -104,6 +104,9 @@ export default class Statistics extends Vue {
 .noResult {
   padding: 16px;
   text-align: center;
+}
+.tabs{
+  background: white;
 }
 ::v-deep {
   .type-tabs-item {

@@ -37,14 +37,11 @@ export default class Tabs extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/style/helper.scss";
 ul{
   padding: 0 110px;
 }
 .tabs {
-  background: white;
   display: flex;
-  //text-align: center;
   font-size: 20px;
 
   &-item {
@@ -54,18 +51,16 @@ ul{
     justify-content: center;
     align-items: center;
     position: relative;
+    color: white;
 
-    &.selected{
-      color: $color-highlight;
-    }
     &.selected::after {
       content: '';
       position: absolute;
-      bottom: 0;
+      bottom: 3px;
       left: 0;
       width: 100%;
       height: 2px;
-      background: $color-highlight;
+      background: white;
     }
   }
 }
