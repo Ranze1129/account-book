@@ -53,6 +53,7 @@ export default class Labels extends mixins(TagHelper){
 }
 
 .createTag {
+  background-color: #1e61e3;
   &-wrapper {
     text-align: center;
     padding: 16px;
