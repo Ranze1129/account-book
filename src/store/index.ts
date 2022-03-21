@@ -67,10 +67,13 @@ const store = new Vuex.Store({
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
       if ( !state.tagList || state.tagList.length === 0) {
         store.commit('createTag', '购物');
-        store.commit('createTag', '服饰');
         store.commit('createTag', '餐饮');
         store.commit('createTag', '住房');
         store.commit('createTag', '出行');
+        store.commit('createTag', '工资');
+        store.commit('createTag', '兼职');
+        store.commit('createTag', '奖金');
+        store.commit('createTag', '红包');
       }
     },
     createTag(state, name: string) {

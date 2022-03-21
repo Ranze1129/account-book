@@ -11,6 +11,7 @@
                field-name="标签名" placeholder="请输入标签名"/>
    </div>
    <div class="button-wrapper">
+     <Button class="confirm" @click="goBack">确认标签</Button>
      <Button @click="remove">删除标签</Button>
    </div>
  </Layout>
@@ -85,7 +86,12 @@ export default class EditLabel extends Vue {
 .button-wrapper{
   text-align: center;
   padding: 16px;
-  margin-top: 44-16px;
+  margin-top: 80px;
 }
-
+Button{
+  margin: 10px;
+}
+.confirm{
+  background: #1e61e3;
+}
 </style>

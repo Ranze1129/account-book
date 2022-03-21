@@ -139,6 +139,7 @@ export default class Statistics extends Vue {
 .record {
   @extend %item;
   background: white;
+  border-top:1px solid #eeeeee;
 }
 .notes {
   margin-right: auto;

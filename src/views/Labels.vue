@@ -8,7 +8,6 @@
            <span>编辑</span>
            <Icon name="right"/>
          </div>
-
        </router-link>
      </div>
      <div class="createTag-wrapper">
@@ -50,8 +49,6 @@ export default class Labels extends mixins(TagHelper){
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #e6e6e6;
-
-
   }
 }
 
@@ -68,7 +65,6 @@ export default class Labels extends mixins(TagHelper){
     color: #c4c4c4;
     font-size: 14px;
   }
-
   svg {
     width: 18px;
     height: 18px;
