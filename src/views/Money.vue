@@ -53,6 +53,22 @@ created(){
 </script>
 
 <style lang="scss" scoped>
+.formItem{
+  display: flex;
+  >.notes {
+    position: relative;
+    background: #f2f2f2;
+    width: 50%;
+  }
+}
+::v-deep .notes{
+  .formItem {
+    input {
+      padding-left: 30px;
+    }
+  }
+}
+
 ::v-deep .layout-content {
   display: flex;
   flex-direction: column-reverse;
