@@ -52,6 +52,10 @@ export default class Tags extends mixins(TagHelper) {
   display: flex;
   flex-direction: column-reverse;
   background: white ;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-shrink: 1;
+  overflow: auto;
 
   > .current {
     display: flex;

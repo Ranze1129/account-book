@@ -97,8 +97,10 @@ export default class Statistics extends Vue {
     const values = this.keyValueList.map(item => item.value);
     return {
       grid: {
+        top:30,
         left: 0,
         right: 0,
+        bottom:30
       },
       xAxis: [{
         type: 'category',
@@ -188,6 +190,8 @@ export default class Statistics extends Vue {
 <style scoped lang="scss">
 .chart {
   width: 430%;
+  height: 250px;
+  background: white;
   &-wrapper {
     overflow: auto;
   }
@@ -198,6 +202,7 @@ export default class Statistics extends Vue {
 }
 .tabs{
   background: white;
+  border-bottom: 1px solid #e3e2e2;
 }
 ::v-deep {
   .type-tabs-item {
