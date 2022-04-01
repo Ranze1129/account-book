@@ -29,7 +29,7 @@ export default class Money extends Vue {
   recordTypeList=recordTypeList;
 
   record: RecordItem = {
-    tags: [], notes: '', type: '-', amount: 0
+    tags: [], notes: '', type: '-', amount: 0, createAt: new Date().toISOString()
   };
 created(){
   this.$store.commit('fetchRecords')
@@ -60,7 +60,7 @@ created(){
 .notes{
   padding:  12px 0 ;
 }
-.tabs{
+.tabs {
   background: #1e61e3;
 }
 </style>
