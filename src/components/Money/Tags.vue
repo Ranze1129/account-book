@@ -1,8 +1,9 @@
 <template>
   <div class="tags">
-    <div class="new">
-      <button @click="createTag">新增标签</button>
-    </div>
+    <router-link to="/labels" class="new">
+      <Icon name="set"/>
+      <button>自定义标签</button>
+    </router-link>
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id"
           :class="{selected: selectedTags.indexOf(tag)>=0 }"
@@ -79,14 +80,18 @@ export default class Tags extends mixins(TagHelper) {
   }
 
   > .new {
-    padding-top: 16px;
+    border-radius: 30px;
+    padding: 5px 16px;
+    border: 1px solid #3e78ee;
 
     button {
       background: transparent;
       border: none;
-      color: #999;
-      border-bottom: 1px solid;
+      color: #3e78ee;
       padding: 0 4px;
+    }
+    svg{
+      color: #3e78ee;
     }
   }
 }

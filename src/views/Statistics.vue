@@ -2,9 +2,6 @@
   <Layout>
     <Tabs class="tabs" class-prefix="type"
           :data-source="recordTypeList" :value.sync="type"/>
-    <div class="chart-wrapper" ref="chartWrapper">
-      <Chart class="chart" :options="chartOptions"/>
-    </div>
     <ol v-if="groupedList.length>0">
       <li v-for="(group,index) in groupedList" :key="index">
         <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
@@ -33,25 +30,18 @@ import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
-import Chart from '@/components/Chart.vue';
 import _ from 'lodash';
 import day from 'dayjs';
 
 
 @Component({
   name: 'HelloWorld',
-  components: {Tabs, Chart},
+  components: {Tabs},
 })
 export default class Statistics extends Vue {
   tagString(tags: Tag[]) {
     return tags.length === 0 ? '无' : tags.map(t => t.name).join('，');
   }
-
-  mounted() {
-    const div = (this.$refs.chartWrapper as HTMLDivElement);
-    div.scrollLeft = div.scrollWidth;
-  }
-
   beautify(string: string) {
     const day = dayjs(string);
     const now = dayjs();
@@ -188,14 +178,6 @@ export default class Statistics extends Vue {
 </script>
 
 <style scoped lang="scss">
-.chart {
-  width: 430%;
-  height: 250px;
-  background: white;
-  &-wrapper {
-    overflow: auto;
-  }
-}
 .noResult {
   padding: 16px;
   text-align: center;
@@ -231,6 +213,8 @@ export default class Statistics extends Vue {
 }
 .title {
   @extend %item;
+  border-left: 6px solid #3e78ee;
+  background: #f0f3f5;
 }
 .record {
   @extend %item;

@@ -60,6 +60,9 @@ created(){
     background: #f2f2f2;
     width: 50%;
   }
+  >.createAt{
+    width: 50%;
+  }
 }
 ::v-deep .notes{
   .formItem {

@@ -8,11 +8,21 @@
     <template v-else>
       <div class="selected">收入统计</div>
     </template>
-    <div class="chart-wrapper" ref="chartWrapper">
-      <Chart class="moneyChart" :options="chartOptions"/>
+    <div class="money-chart-wrapper" ref="moneyChartWrapper">
+      <Chart class="money-chart" :options="chartOptions"/>
     </div>
-    <div>支出占比</div>
-    <Chart class="tagChart" :options="tagChartOptions"/>
+    <template v-if="type === '-'">
+      <div class="selected">支出占比</div>
+    </template>
+    <template v-else>
+      <div class="selected">收入占比</div>
+    </template>
+    <div v-if="groupedList.length>0">
+    <Chart class="tag-chart" :options="tagChartOptions"/>
+    </div>
+    <div v-else class="noResult">
+      目前没有相关记录
+    </div>
   </Layout>
 </template>
 
@@ -36,7 +46,7 @@ import day from 'dayjs';
 export default class Statistics extends Vue {
 
   mounted() {
-    const div = (this.$refs.chartWrapper as HTMLDivElement);
+    const div = (this.$refs.moneyChartWrapper as HTMLDivElement);
     div.scrollLeft = div.scrollWidth;
   }
 
@@ -129,7 +139,7 @@ export default class Statistics extends Vue {
           }
           return 0;
         });
-    if (newList.length === 0) {return [];}
+    if (newList.length === 0) {return []}
     type Result = { title: Tag, total?: number, items: RecordItem[] }[]
     const result: Result = [{
       title: (newList[0].tags)[0],
@@ -150,7 +160,6 @@ export default class Statistics extends Vue {
     result.map(tagGroup =>{
       tagGroup.total = tagGroup.items.reduce((sum,item)=> sum +item.amount,0)
     })
-    console.log(result);
 
     const array2 = [];
     for (let i = 0; i < result.length; i++) {
@@ -158,7 +167,6 @@ export default class Statistics extends Vue {
         value: result[i].total,name:result[i].title.name
       })
     }
-    console.log(array2);
 
     return {
       grid: {
@@ -168,20 +176,27 @@ export default class Statistics extends Vue {
         bottom: 10
       },
       tooltip: {
-        trigger: 'item'
+        trigger: 'item',
+        formatter:'{d}%'
       },
       series: [
         {
           type: 'pie',
           radius: '50%',
-          data: array2,
+          data: array2 ,
           emphasis: {
             itemStyle: {
               shadowBlur: 10,
               shadowOffsetX: 0,
               shadowColor: 'rgba(0, 0, 0, 0.5)'
+            },
+          },
+          label: {
+            normal: {
+              show: true,
+              formatter: '{b}: {d}%' //自定义显示格式(b:name, c:value, d:百分比)
             }
-          }
+          },
         }
       ]
     };
@@ -236,16 +251,17 @@ export default class Statistics extends Vue {
 </script>
 
 <style scoped lang="scss">
-.moneyChart {
+.money-chart{
   width: 430%;
   height: 250px;
   background: white;
+
   &-wrapper {
     overflow: auto;
   }
 }
-.tagChart {
-  height: 280px;
+.tag-chart {
+  height: 300px;
   background: white;
 }
 .tabs {
@@ -265,7 +281,13 @@ export default class Statistics extends Vue {
 }
 .selected {
   padding-left: 10px;
+  border-left: 6px solid #3e78ee;
+  background: #f0f3f5;
 }
-
+.noResult {
+  padding: 130px  30px;
+  text-align: center;
+  background: white;
+}
 </style>
 
