@@ -1,12 +1,20 @@
 <template>
   <Layout class-prefix="layout">
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
-    <div class="notes">
-      <FormItem field-name="备注：" placeholder="在这里输入备注"
-                @update:value="onUpdateNotes" :value.sync="record.notes" />
+    <div class="formItem">
+      <div class="notes">
+        <Icon name="notes"/>
+        <FormItem field-name="   " placeholder="输入备注..."
+                  :value.sync="record.notes"/>
+      </div>
+      <div class="createAt">
+        <FormItem field-name="日期" placeholder="输入日期..."
+                  type="date"
+                  :value.sync="record.createAt"/>
+      </div>
     </div>
-    <Tags @update:value="record.tags = $event" />
-    <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
+    <Tags @update:value="record.tags = $event"/>
+    <Tabs class="tabs" :data-source="recordTypeList" :value.sync="record.type"/>
   </Layout>
 </template>
 
@@ -31,9 +39,11 @@ export default class Money extends Vue {
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0, createAt: new Date().toISOString()
   };
-created(){
-  this.$store.commit('fetchRecords')
-}
+
+  created() {
+    this.$store.commit('fetchRecords');
+  }
+
   onUpdateNotes(value: string) {
     this.record.notes = value;
   }
@@ -60,9 +70,6 @@ created(){
     background: #f2f2f2;
     width: 50%;
   }
-  >.createAt{
-    width: 50%;
-  }
 }
 ::v-deep .notes{
   .formItem {
@@ -71,13 +78,14 @@ created(){
     }
   }
 }
-
 ::v-deep .layout-content {
   display: flex;
   flex-direction: column-reverse;
 }
-.notes{
-  padding:  12px 0 ;
+svg {
+  position: absolute;
+  top: 13px;
+  left: 10px;
 }
 .tabs {
   background: #1e61e3;

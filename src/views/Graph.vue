@@ -81,7 +81,7 @@ export default class Statistics extends Vue {
     const values = this.keyValueList.map(item => item.value);
     return {
       grid: {
-        top: 30,
+        top: 20,
         left: 0,
         right: 0,
         bottom: 30
@@ -235,7 +235,7 @@ export default class Statistics extends Vue {
 <style scoped lang="scss">
 .money-chart{
   width: 430%;
-  height: 250px;
+  height: 260px;
   background: white;
 
   &-wrapper {

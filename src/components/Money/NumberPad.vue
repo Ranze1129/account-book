@@ -5,7 +5,7 @@
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button @click="remove">删除</button>
+      <button @click="remove"><Icon name="delete"/></button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
@@ -13,7 +13,7 @@
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button @click="ok" class="ok">OK</button>
+      <button @click="ok" class="ok">完成</button>
       <button @click="inputContent" class="zero">0</button>
       <button @click="inputContent">.</button>
     </div>
@@ -70,15 +70,22 @@ export default class NumberPad extends Vue {
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
 
+
 .numberPad {
+  background: white;
   .output {
     @extend %clearFix;
     @extend %innerShadow;
+    color: #1e61e3;
     font-size: 36px;
     font-family: Consolas, monospace;
-    padding: 9px 16px;
-    text-align: right;
-    height: 72px;
+    padding: 9px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 62px;
+    background: #f2f2f2;
+    border:1px solid #e7e5e5;
   }
 
   .buttons {
@@ -88,8 +95,8 @@ export default class NumberPad extends Vue {
       width: 25%;
       height: 64px;
       float: left;
-      background: transparent;
-      border: none;
+      background: #f2f2f2;
+      border:1px solid #e7e5e5;
 
       &.ok {
         height: 64*2px;
@@ -102,34 +109,44 @@ export default class NumberPad extends Vue {
 
       $bg: #f2f2f2;
 
-      &:nth-child(1) {
-        background: $bg;
-      }
-
-      &:nth-child(2), &:nth-child(5) {
-        background: darken($bg, 4%);
-      }
-
-      &:nth-child(3), &:nth-child(6), &:nth-child(9) {
-        background: darken($bg, 4*2%);
-      }
-
-      &:nth-child(4), &:nth-child(7), &:nth-child(10) {
-        background: darken($bg, 4*3%);
-      }
-
-      &:nth-child(8), &:nth-child(11), &:nth-child(13) {
-        background: darken($bg, 4*4%);
-      }
-
-      &:nth-child(14) {
-        background: darken($bg, 4*5%);
-      }
+      //&:nth-child(1) {
+      //  background: $bg;
+      //}
+      //
+      //&:nth-child(2), &:nth-child(5) {
+      //  background: darken($bg, 4%);
+      //}
+      //
+      //&:nth-child(3), &:nth-child(6), &:nth-child(9) {
+      //  background: darken($bg, 4*2%);
+      //}
+      //
+      // &:nth-child(7), &:nth-child(10) {
+      //  background: darken($bg, 4*3%);
+      //}
+      //
+      //&:nth-child(8), &:nth-child(11), &:nth-child(13) {
+      //  background: darken($bg, 4*4%);
+      //}
+      //
+      //&:nth-child(14) {
+      //  background: darken($bg, 4*5%);
+      //}
 
       &:nth-child(12) {
-        background: darken($bg, 4*6%);
+        background: #1e61e3;
+        color: white;
+      }
+      &:nth-child(4){
+        //background: darken($bg, 4*3%);
+        font-size: 47px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #5c5858;
       }
     }
   }
 }
+
 </style>

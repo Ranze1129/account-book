@@ -65,15 +65,16 @@ export default class Tags extends mixins(TagHelper) {
     > li {
       $bg: #d9d9d9;
       background: $bg;
-      $h: 24px;
+      $h: 41px;
       height: $h;
-      line-height: $h;
-      border-radius: 12px;
-      padding: 0 16px;
+      line-height: 30px;
+      border-radius: 30px;
+      padding: 5px 16px;
       margin-right: 12px;
-      margin-top: 4px;
+      margin-top: 10px;
+      //text-align: center;
       &.selected{
-        background: darken($bg,20%);
+        background:#1e61e3;
         color: white;
       }
     }
