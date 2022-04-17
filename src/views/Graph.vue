@@ -37,6 +37,7 @@ import clone from '@/lib/clone';
 import Chart from '@/components/Chart.vue';
 import _ from 'lodash';
 import day from 'dayjs';
+import createdAtList from '@/lib/createdAtList';
 
 
 @Component({
@@ -108,7 +109,7 @@ export default class Statistics extends Vue {
       tooltip: {
         show: true,
         triggerOn: 'click',
-        position: 'top',
+        position: 'bottom',
         formatter: '{c}',
         padding: [2, 8, 2, 8],
       },
@@ -161,11 +162,17 @@ export default class Statistics extends Vue {
       tagGroup.total = tagGroup.items.reduce((sum,item)=> sum +item.amount,0)
     })
 
+    const today = new Date();
+    const endDay = day(today).subtract(30, 'days');
+
     const array2 = [];
     for (let i = 0; i < result.length; i++) {
-      array2.push({
-        value: result[i].total,name:result[i].title.name
-      })
+      const time = result[i].items[0].createAt
+      if(day(time).isAfter(day(endDay))){
+        array2.push({
+          value: result[i].total,name:result[i].title.name
+        })
+      }
     }
 
     return {
@@ -208,32 +215,7 @@ export default class Statistics extends Vue {
 
   get groupedList() {
     const {recordList} = this;
-    const newList = clone(recordList)
-        .filter(r => r.type === this.type)
-        .sort((a, b) => dayjs(b.createAt).valueOf()
-            - dayjs(a.createAt).valueOf());
-    if (newList.length === 0) {return [];}
-    type Result = { title: string, total?: number, items: RecordItem[] }[]
-    const result: Result = [{
-      title: dayjs(newList[0].createAt).format('YYYY-MM-DD'),
-      items: [newList[0]]
-    }];
-    for (let i = 1; i < newList.length; i++) {
-      const current = newList[i];
-      const last = result[result.length - 1];
-      if (dayjs(last.title).isSame(dayjs(current.createAt), 'day')) {
-        last.items.push(current);
-      } else {
-        result.push({
-          title: dayjs(current.createAt).format('YYYY-MM-DD'),
-          items: [current]
-        });
-      }
-    }
-    result.map(group => {
-      group.total = group.items.reduce((sum, item) => sum + item.amount, 0);
-    });
-    return result;
+    return createdAtList(recordList, this.type);
   }
 
   get currentTag() {
