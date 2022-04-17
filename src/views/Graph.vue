@@ -129,7 +129,22 @@ export default class Statistics extends Vue {
 
   get tagChartOptions() {
     const {recordList} = this;
-    const newList = clone(recordList)
+    const timeArray = [];
+    const today = new Date();
+    const endDay = day(today).subtract(30, 'days').format('YYYY-MM-DD');
+    for (let i = 0; i < recordList.length; i++) {
+      const time = recordList[i].createAt;
+      if (day(time).isAfter(endDay)) {
+        timeArray.push({
+          amount: recordList[i].amount,
+          createAt: recordList[i].createAt,
+          notes: recordList[i].notes,
+          tags: recordList[i].tags,
+          type: recordList[i].type
+        });
+      }
+    }
+    const newList = clone(timeArray)
         .filter(r => r.type === this.type)
         .sort(function (a, b) {
           if (a.tags[0].id < b.tags[0].id) {
@@ -161,20 +176,22 @@ export default class Statistics extends Vue {
     result.map(tagGroup =>{
       tagGroup.total = tagGroup.items.reduce((sum,item)=> sum +item.amount,0)
     })
-
-    const today = new Date();
-    const endDay = day(today).subtract(30, 'days');
     const array2 = [];
     for (let i = 0; i < result.length; i++) {
-      const time = result[i].items[0].createAt
-      if(day(time).isAfter(endDay)){
         array2.push({
           value: result[i].total,name:result[i].title.name
         })
-      }
     }
 
     return {
+      title: {
+        subtext: '仅显示30天数据',
+        left: 'center',
+        bottom: 20,
+        subtextStyle: {
+          color: "rgb(199,199,199)"
+        }
+      },
       grid: {
         top: 10,
         left: 10,
@@ -183,7 +200,7 @@ export default class Statistics extends Vue {
       },
       tooltip: {
         trigger: 'item',
-        formatter:'{d}%'
+        formatter: '{c}'
       },
       series: [
         {
@@ -242,7 +259,7 @@ export default class Statistics extends Vue {
   }
 }
 .tag-chart {
-  height: 300px;
+  height: 280px;
   background: white;
 }
 .tabs {
