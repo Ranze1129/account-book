@@ -58,81 +58,6 @@ export default class Statistics extends Vue {
     }
   }
 
-  get keyValueList() {
-    const today = new Date();
-    const array = [];
-    for (let i = 0; i <= 29; i++) {
-      const dateString = day(today).subtract(i, 'day').format('YYYY-MM-DD');
-      const found = _.find(this.groupedList, {
-        title: dateString
-      });
-      array.push({
-        key: dateString, value: found ? found.total : 0
-      });
-    }
-    array.sort((a, b) => {
-      if (a.key > b.key) {
-        return 1;
-      } else if (a.key === b.key) {
-        return 0;
-      } else {
-        return -1;
-      }
-    });
-    return array;
-  }
-
-  get chartOptions() {
-    const keys = this.keyValueList.map(item => item.key);
-    const values = this.keyValueList.map(item => item.value);
-    return {
-      grid: {
-        top:30,
-        left: 0,
-        right: 0,
-        bottom:30
-      },
-      xAxis: [{
-        type: 'category',
-        data: keys,
-        axisTick: {
-          alignWithLabel: true,
-          inside: true
-        },
-        axisLine: {
-          lineStyle: {color: '#666'}
-        },
-        axisLabel:{
-          formatter: function (value:string){
-            return value.substr(5)
-          }
-        }
-      }],
-      yAxis: {
-        type: 'value',
-        show: false
-      },
-      tooltip: {
-        show: true,
-        triggerOn: 'click',
-        position: 'top',
-        formatter: '{c}',
-        padding: [2, 8, 2, 8],
-      },
-      series: [
-        {
-          symbolSize: 12,
-          data: values,
-          type: 'line',
-          symbol: 'circle',
-          lineStyle: {
-            width: 1,
-          },
-        }
-      ]
-    };
-  }
-
   get recordList() {
     return (this.$store.state as RootState).recordList;
   }
@@ -188,22 +113,19 @@ export default class Statistics extends Vue {
 }
 ::v-deep {
   .type-tabs-item {
-    background: #c4c4c4;
-
+    color: #333333;
+    background: white;
     &.selected {
-      background: white;
-
+      color: #3e78ee;
       &::after {
         display: none;
       }
     }
   }
-
   .interval-tabs-item {
     height: 48px;
   }
 }
-
 %item {
   padding: 8px 16px;
   line-height: 24px;
@@ -227,4 +149,5 @@ export default class Statistics extends Vue {
   color: #999;
 }
 </style>
+
 
