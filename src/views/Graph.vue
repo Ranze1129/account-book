@@ -164,11 +164,10 @@ export default class Statistics extends Vue {
 
     const today = new Date();
     const endDay = day(today).subtract(30, 'days');
-
     const array2 = [];
     for (let i = 0; i < result.length; i++) {
       const time = result[i].items[0].createAt
-      if(day(time).isAfter(day(endDay))){
+      if(day(time).isAfter(endDay)){
         array2.push({
           value: result[i].total,name:result[i].title.name
         })
