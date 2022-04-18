@@ -17,7 +17,7 @@
     <template v-else>
       <div class="selected">收入占比</div>
     </template>
-    <div v-if="groupedList.length>0">
+    <div v-if="pieChartList.length>0">
     <Chart class="tag-chart" :options="tagChartOptions"/>
     </div>
     <div v-else class="noResult">
@@ -32,7 +32,6 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/recordTypeList';
-import dayjs from 'dayjs';
 import clone from '@/lib/clone';
 import Chart from '@/components/Chart.vue';
 import _ from 'lodash';
@@ -127,7 +126,7 @@ export default class Statistics extends Vue {
     };
   }
 
-  get tagChartOptions() {
+  get pieChartList() {
     const {recordList} = this;
     const timeArray = [];
     const today = new Date();
@@ -155,7 +154,7 @@ export default class Statistics extends Vue {
           }
           return 0;
         });
-    if (newList.length === 0) {return []}
+    if (newList.length === 0) {return [];}
     type Result = { title: Tag, total?: number, items: RecordItem[] }[]
     const result: Result = [{
       title: (newList[0].tags)[0],
@@ -173,23 +172,29 @@ export default class Statistics extends Vue {
         });
       }
     }
-    result.map(tagGroup =>{
-      tagGroup.total = tagGroup.items.reduce((sum,item)=> sum +item.amount,0)
-    })
+    result.map(tagGroup => {
+      tagGroup.total = tagGroup.items.reduce((sum, item) => sum + item.amount, 0);
+    });
+    return result;
+
+  }
+
+  get tagChartOptions() {
+    const dataList = this.pieChartList;
     const array2 = [];
-    for (let i = 0; i < result.length; i++) {
-        array2.push({
-          value: result[i].total,name:result[i].title.name
-        })
+    for (let i = 0; i < dataList.length; i++) {
+      array2.push({
+        value: dataList[i].total, name: dataList[i].title.name
+      });
     }
 
     return {
       title: {
-        subtext: '仅显示30天数据',
+        subtext: '仅显示近30天数据',
         left: 'center',
         bottom: 20,
         subtextStyle: {
-          color: "rgb(199,199,199)"
+          color: 'rgb(199,199,199)'
         }
       },
       grid: {
