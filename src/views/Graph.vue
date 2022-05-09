@@ -22,6 +22,7 @@
     </div>
     <div v-else class="noResult">
       目前没有相关记录
+      <p>（仅显示近30天数据）</p>
     </div>
   </Layout>
 </template>
@@ -288,9 +289,13 @@ export default class Statistics extends Vue {
   background: #f0f3f5;
 }
 .noResult {
-  padding: 130px  30px;
+  padding: 130px 30px;
   text-align: center;
   background: white;
+  > p {
+    font-size: 12px;
+    color: rgb(161, 161, 161)
+  }
 }
 </style>
 

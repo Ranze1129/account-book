@@ -20,25 +20,20 @@ import {TagHelper} from '@/mixins/TagHelper';
 
 @Component
 export default class Tags extends mixins(TagHelper) {
-  selectedTags: string[] = [];
+  selectedTags: string[] = [] ;
 
   get tagList() {
     return this.$store.state.tagList;
   }
   created() {
     this.$store.commit('fetchTags');
+    this.selectedTags.push(this.tagList[0]);
+    this.$emit('update:value', this.selectedTags);
   }
 
-  toggle(tag: string) {
-    const index = this.selectedTags.indexOf(tag);
-    if (index >= 0) {
-      this.selectedTags.splice(index, 1);
-    }else if(this.selectedTags.length>0){
-      this.selectedTags = []
-      this.selectedTags.push(tag);
-    } else {
-      this.selectedTags.push(tag);
-    }
+  toggle(tag: string ) {
+    this.selectedTags = []
+    this.selectedTags.push(tag);
     this.$emit('update:value', this.selectedTags);
   }
 
